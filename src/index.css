@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+
+/* testing for nav */
+.nav::after { 
+  content: "";
+  border-bottom-left-radius: 90% 100%;
+  border-bottom-right-radius: 90% 100%;
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  background-color: black;
+}
+
+
+.bubble::after {
+  content: "";
+  border-bottom-left-radius: 90% 100%;
+  border-bottom-right-radius: 90% 100%;
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  background-color: black;
+}
+
+
+.scrollbar-style::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  height: 5px;
+}
+
+.scrollbar-style::-webkit-scrollbar-thumb {
+  background-color: #4871FF; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Rounded corners of the thumb */
+}
+
+.scrollbar-style::-webkit-scrollbar-track {
+  background-color: #C8D4FF; /* Color of the scrollbar track */
+}
+
+/* Apply the global scrollbar style to your Review-wrapper */
+.Review-wrapper {
+  /* Add other styles for the Review-wrapper if needed */
+}
+
+.select-none {
+  user-select: none;
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scrolling {
+  animation: scroll 20s linear infinite;
+}
+
+.fill-available {
+  width: -webkit-fill-available;
+}
