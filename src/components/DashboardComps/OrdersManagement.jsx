@@ -17,7 +17,7 @@ const OrderManagement = () => {
   const [isFiltering, setIsFiltering] = useState(false);
   const [filterField, setFilterField] = useState(''); // Field to filter by
   const [filterValue, setFilterValue] = useState(''); // Value to filter
-  const baseUrl = "http://localhost:8000/"
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const handleEdit = (orderId, field, value) => {
     setEditedOrders((prevEditedOrders) => ({
       ...prevEditedOrders,
@@ -64,7 +64,7 @@ const OrderManagement = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${baseUrl}api/v1/orders`);
+        const response = await axios.get(`${baseUrl}orders`);
         console.log(response.data.orders);
         setOrders(response.data.orders); // Assuming the API response has an 'orders' property
       } catch (error) {
@@ -78,10 +78,10 @@ const OrderManagement = () => {
   const mappedOrders = useMemo(() => {
     return currentOrders.map(order => ({
         orderId: order._id,
-        name: order.user || "Unknown",
-        address: "Unknown",
-        pickupLocation: "Unknown",
-        dropLocation: "Unknown",
+        name: order.userName || "Unknown",
+        address: order.form?.movingFrom || "Unknown",
+        pickupLocation: order.form?.movingFrom || "Unknown",
+        dropLocation: order.form?.movingTo || "Unknown",
         status: order.orderCompletion || "Unknown",
         date: order.bookingDetails?.selectedDate || "Unknown",
         services: "Unknown",

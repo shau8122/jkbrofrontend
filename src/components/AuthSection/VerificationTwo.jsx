@@ -68,7 +68,7 @@ const VerificationTwo = () => {
             console.log(userData);
       
             // Fetch user data from the backend API
-            axios.get(`${baseUrl}/user/${user.uid}`)
+            axios.get(`${baseUrl}user/${user.uid}`,{withCredentials:true})
               .then((response) => {
                 console.log(response);
                 navigate("/home");

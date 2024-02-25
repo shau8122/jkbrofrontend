@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {  useEffect, useMemo, useState } from "react";
 import { Pencil, Trash } from "phosphor-react";
 import axios from "axios";
 import Pagination from "../OrderManagement/Pagination";
@@ -19,7 +19,7 @@ const headers = [
 ];
 
 const TrackingList = () => {
-  const baseUrl = "http://localhost:8000/";
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const [orders, setOrders] = useState(InitialOrders);
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedOrders, setEditedOrders] = useState({});
@@ -63,8 +63,7 @@ const TrackingList = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${baseUrl}api/v1/orders`);
-        console.log(response.data.orders);
+        const response = await axios.get(`${baseUrl}orders`);
         setOrders(response.data.orders); // Assuming the API response has an 'orders' property
       } catch (error) {
         console.error("Error fetching orders:", error.message);
@@ -77,17 +76,16 @@ const TrackingList = () => {
   const mappedOrders = useMemo(() => {
     return currentOrders.map(order => ({
         orderId: order._id,
-        name: order.user || "Unknown",
-        address: "Unknown",
-        pickupLocation: "Unknown",
-        dropLocation: "Unknown",
+        name: order.userName || "Unknown",
+        address:order.form?.movingFrom || "Unknown",
+        pickupLocation: order.form?.movingFrom || "Unknown",
+        dropLocation: order.form?.movingTo || "Unknown",
         status: order.orderCompletion || "Unknown",
         date: order.bookingDetails?.selectedDate || "Unknown",
         services: "Unknown",
         fee: order.totalAmount || 0,
-      }));
-  }, [currentOrders]);
-    console.log(mappedOrders)
+    }));
+}, [currentOrders]);
   return (
     <div className="md:ml-2 md:pl-4 container">
       <div className="flex md:flex-row flex-col bg-white justify-between items-center">

@@ -1,19 +1,27 @@
 import { UserCircleGear } from '@phosphor-icons/react';
 import  { useEffect, useState } from 'react'
-import { Link, redirect } from 'react-router-dom'
-import { useAuth } from '../../Contexts/AuthContext';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
+import axios from 'axios';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuth, signOut } from 'firebase/auth';
+import app from '../../../firebase';
+import { logoutUser } from '../../redux/slices/userSlice';
+
+
+const authentication = getAuth(app);
 
 const EditProfileComponent = ({
   onChange,
   value,
   config
 }) => {
+    const baseUrl = import.meta.env.VITE_BACKEND_URL
+    const dispatch = useDispatch()
     const user = useSelector(state=>state.userState.user)
+  
     const [ profileOption, setProfileOptiion ] = useState(value)
-
-    const { logout } = useAuth() 
-
+    console.log(user.mobile)
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -22,10 +30,19 @@ const EditProfileComponent = ({
 
     const handleOptionClick = (option) => {
       if (option.value === "logOut") {
-        logout();
-        
-        redirect("/");
-        return;
+        const handleSignOut = async () => {
+          try {
+            await signOut(authentication);
+            axios.get(`${baseUrl}logout`).then(()=>console.log("Logout succesfull")
+            ).catch(()=>{
+              console.log("some error in logout")
+            })
+            dispatch(logoutUser());
+          } catch (error) {
+            console.error("Error signing out:", error.message);
+          }
+        };
+        handleSignOut();
       }
     
       setProfileOptiion(option)
@@ -53,9 +70,9 @@ const EditProfileComponent = ({
                 <div className='overflow-hidden'>
                   <h1 className='font-playfair md:text-2xl text-xl text-white'>{user.name ||""}</h1>
                     <div className='flex items-center gap-2 w-max'>
-                      <p className={`text-sm ${profileOption?.value === "editProfile" ? "text-gray-300" : "text-gray-400"} `}> {user.phoneNumber||"+91 99999 99999"} </p>
+                      <p className={`text-sm ${profileOption?.value === "editProfile" ? "text-gray-300" : "text-gray-400"} `}> {user.mobile ||"+91 99999 99999"} </p>
                       <div className={`w-[.2rem] h-[.2rem] rounded-full ${profileOption?.value === "editProfile" ? "bg-gray-300" : "bg-gray-700"}`}></div>
-                      <p className={`text-sm ${profileOption?.value === "editProfile" ? "text-gray-300" : "text-gray-400"} `}>{user.email||" dhruviljogiwala786@gmail.com"} </p>
+                      <p className={`text-sm ${profileOption?.value === "editProfile" ? "text-gray-300" : "text-gray-400"} `}>{user.email || " dhruviljogiwala786@gmail.com"} </p>
                     </div>
                 </div>
           ) : (
@@ -98,7 +115,7 @@ const EditProfileComponent = ({
                             </div>
 
                             <div className='flex items-center gap-2 flex-wrap'>
-                              <p className={`text-sm ${profileOption?.value === option.value  ? "text-gray-300": "text-gray-400"} `}> {user.phoneNumber||"+91 99999 99999 "}</p>
+                              <p className={`text-sm ${profileOption?.value === option.value  ? "text-gray-300": "text-gray-400"} `}> {user.mobile||"+91 99999 99999 "}</p>
                               <div className={`w-[.2rem] h-[.2rem] rounded-full
                                   ${profileOption?.value === option.value  ? "bg-gray-300": "bg-gray-700"}
                                 `}></div>
@@ -136,7 +153,7 @@ const EditProfileComponent = ({
                   <div className='truncate'>
                     <h1 className='font-playfair md:text-2xl text-xl'>{user.name || ""}</h1>
                     <div className='flex items-center gap-2 w-max'>
-                      <p className={`text-sm ${profileOption?.value === option.value  ? "text-gray-300": "text-gray-400"} `}> {user.phoneNumber || "+91 99999 99999" }</p>
+                      <p className={`text-sm ${profileOption?.value === option.value  ? "text-gray-300": "text-gray-400"} `}> {user.mobile || "+91 99999 99999" }</p>
                       <div className={`w-[.2rem] h-[.2rem] rounded-full
                           ${profileOption?.value === option.value  ? "bg-gray-300": "bg-gray-700"}
                         `}></div>

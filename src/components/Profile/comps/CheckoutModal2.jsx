@@ -7,15 +7,13 @@ import applepayLogo from '/assets/ApplePay.svg';
 import googlepayLogo from '/assets/GooglePay.svg';
 import CardValidator from 'card-validator';
 
-const CheckoutModal2 = ({ open, setOpen, setSteps, onCloseClick, closeText }) => {
+const CheckoutModal2 = ({ open, setOpen, setSteps, onCloseClick, closeText,data }) => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [cardNumber, setCardNumber] = useState('');
     const [isCardValid, setIsCardValid] = useState(false);
-
     const handleCardClick = (cardType) => {
         setSelectedCard(cardType);
     };
-
     const handleCardNumberChange = (event) => {
         let enteredNumber = event.target.value.replace(/\s/g, ''); // Remove spaces from the entered number
         enteredNumber = enteredNumber.replace(/\D/g, ''); // Remove non-numeric characters
@@ -100,7 +98,7 @@ const CheckoutModal2 = ({ open, setOpen, setSteps, onCloseClick, closeText }) =>
                         <input
                             type="number"
                             id="cardNumber"
-                            inputmode="numeric"
+                            inputMode="numeric"
                             placeholder="**** **** **** 4521"
                             className={`border text-xs p-2.5 rounded-xl ${isCardValid ? 'border-green-400' : 'border-red-400'}`}
                             onChange={handleCardNumberChange}

@@ -1,15 +1,15 @@
-import React from 'react'
+
 import { useState,useEffect} from 'react';
 
 
 import directionPins from '/assets/direction.svg'
 import { Button } from '../../ui';
-import VerticalShippingIndicator from './VerticalShippingIndicator';
+// import VerticalShippingIndicator from './VerticalShippingIndicator';
 import  ShippingProgress  from './ShippingProgress'
 
 
 const ShippingInfo = () => {
-    const baseUrl = "https://jkbros.onrender.com/";
+    const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
     const [orders, setOrders] = useState([]);
     const getUserDetails = () => {
@@ -32,7 +32,7 @@ const ShippingInfo = () => {
           // Make an API call to fetch orders using the user ID from local storage
           const fetchOrders = async () => {
             try {
-            const response = await fetch(`${baseUrl}api/v1/orders/${userDetails.user._id}`);
+            const response = await fetch(`${baseUrl}orders/${userDetails.user._id}`);
             const data = await response.json();
             setOrders(data.orders); // Assuming the API response has an 'orders' property
           } catch (error) {

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const baseUrl = "https://jkbros.onrender.com/";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const validateUser = async (token) => {
     try {
         console.log(token);
-        const res = await axios.post(`${baseUrl}api/v1/users/login`, {}, {
+        const res = await axios.post(`${baseUrl}users/login`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

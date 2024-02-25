@@ -13,7 +13,7 @@ export const signUpAction = (formData) => async (dispatch) => {
   try {
     dispatch(setLoader(true));
     const { data } = await axios.post(
-      `${baseUrl}/user/new`,
+      `${baseUrl}user/new`,
       formData,
       { headers: { "Content-Type": "application/json" } }
     );
@@ -44,7 +44,7 @@ export const logoutAction = () => async (dispatch) => {
   try {
     dispatch(setLoader(true));
     console.log("hello")
-    await axios.get(`${baseUrl}/logout`);
+    await axios.get(`${baseUrl}logout`);
     dispatch(logoutUser());
   } catch (err) {
     dispatch(setError(err.response.data.message));

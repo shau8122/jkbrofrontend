@@ -1,57 +1,70 @@
-import React, { useState } from 'react'
-import { Button, Input } from '../../ui'
+import { useState } from "react";
+import { Button } from "../../ui";
+import { useSelector } from "react-redux";
 
 const EditAdminProfile = () => {
+  const user = useSelector(state=>state.userState.user)
 
   const [FormData, setFormData] = useState({
-    name: '',
+    name: user.name,
     date: {
-      day: '',
-      month: '',
-      year: '',
+      day: user.birthdate.day,
+      month: user.birthdate.month,
+      year: user.birthdate.year
     },
-  })
+    role:user.role,
+    email:user.email
+  });
 
-  const handleOnChange = () => {}
+  const handleOnChange = () => {};
 
   return (
-    <div className='w-[70%] h-[100%] pl-5 flex flex-col gap-y-4'>
-      <h1 className='font-playfair text-textPrimary text-xl'>Profile</h1>
-      <img src="/assets/dummy-profile.png" className='w-[5rem] h-[5rem]'></img>
-      <form className='flex flex-col gap-y-4'>
-        <div className=''>
-        <input type="text" id="floors"
-            className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]" 
-            placeholder="" 
+    <div className="w-[70%] h-[100%] pl-5 flex flex-col gap-y-4">
+      <h1 className="font-playfair text-textPrimary text-xl">Profile</h1>
+      <img src="/assets/dummy-profile.png" className="w-[5rem] h-[5rem]"></img>
+      <form className="flex flex-col gap-y-4">
+        <div className="">
+          <input
+            type="text"
+            id="floors"
+            className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]"
+            placeholder=""
             maxLength="30"
             // value={formData.movingFromFloor}
-            // onChange={handleOnChange} 
-            name='name'
-            ></input>
-            {/* <div className="text-red-500 text-sm">{formErrors?.movingFromFloor}</div> */}
+            // onChange={handleOnChange}
+            name="name"
+            value={FormData.name}
+          />
+
+          {/* <div className="text-red-500 text-sm">{formErrors?.movingFromFloor}</div> */}
         </div>
 
-        <label>Birthdate
-          <DateComponent value={FormData.date} onChange={handleOnChange}/>
+        <label>
+          Birthdate
+          <DateComponent value={FormData.date} onChange={handleOnChange} />
         </label>
 
-        <input type="text" id="role"
-            className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]" 
-            placeholder="" 
-            maxLength="30"
-            // value={formData.movingFromFloor}
-            // onChange={handleOnChange} 
-            name='role'
+        <input
+          type="text"
+          id="role"
+          className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]"
+          placeholder=""
+          maxLength="30"
+          value={FormData.role}
+          // onChange={handleOnChange}
+          name="role"
         />
-            {/* <div className="text-red-500 text-sm">{formErrors?.movingFromFloor}</div> */}
+        {/* <div className="text-red-500 text-sm">{formErrors?.movingFromFloor}</div> */}
 
-        <input type="text" id="role"
-              className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]" 
-              placeholder="" 
-              maxLength="30"
-              // value={formData.movingFromFloor}
-              // onChange={handleOnChange} 
-              name='location'
+        <input
+          type="text"
+          id="role"
+          className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]"
+          placeholder=""
+          maxLength="30"
+          value={ FormData.email}
+          // onChange={handleOnChange}
+          name="email"
         />
 
         {/* <div>
@@ -80,32 +93,33 @@ const EditAdminProfile = () => {
 
         <div>
           <label>Availability status</label>
-          <input type="text" id="role"
-                className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]" 
-                placeholder="" 
-                maxLength="30"
-                // value={formData.movingFromFloor}
-                // onChange={handleOnChange} 
-                name='adharCard'
+          <input
+            type="text"
+            id="role"
+            className="bg-gray-50 border-2 text-lg rounded-xl w-full p-2 border-[#D8E3FF]"
+            placeholder=""
+            maxLength="30"
+            // value={formData.movingFromFloor}
+            // onChange={handleOnChange}
+            name="adharCard"
           />
         </div>
 
-        <div className='w-[100%] md:w-[20rem]'>
+        <div className="w-[100%] md:w-[20rem]">
           <Button onClick={() => {}}>Save</Button>
         </div>
-      </form>  
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditAdminProfile
-
+export default EditAdminProfile;
 
 const DateComponent = ({ value, onChange }) => {
   const [date, setDate] = useState({
-    day: '',
-    month: '',
-    year: '',
+    day: "",
+    month: "",
+    year: "",
   });
 
   const handleInputChange = (e) => {
@@ -160,4 +174,3 @@ const DateComponent = ({ value, onChange }) => {
     </div>
   );
 };
-

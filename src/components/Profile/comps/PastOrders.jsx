@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const PastOrders = () => {
   // const baseUrl = "https://jkbros.onrender.com/";
-  const baseUrl = "http://localhost:8000/"
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const user = useSelector(state=>state.userState.user);
   const [orders, setOrders] = useState([]);
   // const getUserDetails = () => {
@@ -28,7 +28,7 @@ const PastOrders = () => {
     const fetchOrders = async () => {
       try {
         console.log("id",user._id)
-        const response = await axios.get(`${baseUrl}api/v1/orders/${user._id}`);
+        const response = await axios.get(`${baseUrl}orders/${user._id}`);
         console.log(response.data.orders)
         setOrders(response.data.orders); // Assuming the API response has an 'orders' property
       } catch (error) {
@@ -39,7 +39,18 @@ const PastOrders = () => {
     fetchOrders();
   }, []);
   
+  const totalNumberOfItem = (selectedItems) => {
+    let count = 0;
 
+    // Iterate over the values of the selectedItems object
+    if(selectedItems){
+      selectedItems.map(item=>{
+        count+=item.count
+      })
+    }
+
+    return count;
+};
   return (
     <div className='md:w-[100%]'>
       <h1 className='font-playfair text-2xl text-textPrimary'>Orders</h1>
@@ -76,7 +87,7 @@ const PastOrders = () => {
               </div>
               <div className='flex text-xs justify-between'>
                 <p >No. of items added</p>
-                {/* <p>{Object.values(order.selectedItems).reduce((total, item) => total + item.count, 0)}</p> */}
+                <p>{totalNumberOfItem(order.selectedItems)}</p>
               </div>
           </div>
           <p className='text-xs'>Driver Details</p>

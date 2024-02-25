@@ -9,7 +9,7 @@ import { logoutUser } from "../../redux/slices/userSlice";
 const AdminNavigation = ({ onChange, value, config }) => {
   const [dashboardOption, setDashboardOption] = useState(value);
   const dispatch = useDispatch();
-  const user = useSelector(state=>state.userState.user)
+  const user = useSelector((state) => state.userState.user);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -135,7 +135,7 @@ const AdminNavigation = ({ onChange, value, config }) => {
                           <>
                             <div className="flex items-center justify-between">
                               <h1 className="font-playfair md:text-2xl text-xl">
-                               {user.name||""}
+                                {user.name || ""}
                               </h1>
                               <UserCircleGear
                                 size={20}
@@ -153,7 +153,7 @@ const AdminNavigation = ({ onChange, value, config }) => {
                                 } `}
                               >
                                 {" "}
-                                {user.phoneNumber||"+91 99999 99999"}{" "}
+                                {user.phoneNumber || "+91 99999 99999"}{" "}
                               </p>
                               <div
                                 className={`w-[.2rem] h-[.2rem] rounded-full
@@ -184,21 +184,24 @@ const AdminNavigation = ({ onChange, value, config }) => {
           className={`cursor-pointer rounded-t-3xl flex justify-center flex-col px-[1rem] pb-[1rem] py-[2rem] border-b border-dotted border-[#C8D4FF] overflow-hidden
                         `}
         >
-          <h1 className="font-playfair">{user.name||""}</h1>
+          <h1 className="font-playfair">{user.name || ""}</h1>
           {/* <p className={`text-sm ${dashboardOption?.value === option.value  ? "text-gray-300": "text-gray-400"} `}> +91 99999 99999 </p> */}
           {/* <div className={`w-[.2rem] h-[.2rem] rounded-full
                           ${dashboardOption?.value === option.value  ? "bg-gray-300": "bg-gray-700"}
                         `}></div> */}
-          <p className={`text-sm `}> {user.phoneNumber||"+91 99999 99999 "}</p>
+          <p className={`text-sm `}>
+            {" "}
+            {user.mobile || "+91 99999 99999 "}
+          </p>
         </div>
         {config.map((option) => (
           <div
             className={`${
-                            dashboardOption?.value === option.value &&
-                            option.value !== "contactUs"
-                              ? "bg-primary text-white hover:bg-primary!"
-                              : "hover:bg-[#C8D4FF] hover:bg-opacity-30 hover:text-black"
-                          } 
+              dashboardOption?.value === option.value &&
+              option.value !== "contactUs"
+                ? "bg-primary text-white hover:bg-primary!"
+                : "hover:bg-[#C8D4FF] hover:bg-opacity-30 hover:text-black"
+            } 
                           px-[1rem] lg:px-[2rem] py-[1.5rem] border-b border-dotted border-[#C8D4FF] cursor-pointer transition-all 
                           `}
             key={option.value}

@@ -34,7 +34,7 @@ const SignupTwo = () => {
   const handleSignOut = async () => {
     try {
       await signOut(authentication);
-      axios.get(`${baseUrl}/logout`).then(()=>console.log("Logout succesfull")
+      axios.get(`${baseUrl}logout`).then(()=>console.log("Logout succesfull")
       ).catch(()=>{
         console.log("some error in logout")
       })
@@ -128,7 +128,7 @@ const SignupTwo = () => {
 
           // Example of sending user ID to your backend
           axios
-            .get(`${baseUrl}/user/${user.uid}`,{withCredentials:true})
+            .get(`${baseUrl}user/${user.uid}`,{withCredentials:true})
             .then((response) => {
               // Extract user data and token from the response data
               const { user} = response.data;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../../ui';
 import { CaretDown } from 'phosphor-react'; // Import CaretDown icon
+import { useSelector } from 'react-redux';
 
 const ConfirmBookingModal = ({ setSteps, onCloseClick, closeText, setData, data }) => {
     // Define arrays for shifting dates, shifting times, prices, and the dynamic numbers
@@ -10,7 +11,7 @@ const ConfirmBookingModal = ({ setSteps, onCloseClick, closeText, setData, data 
       date.setDate(currentDate.getDate() + index);
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     });
-  
+    const numberOfItems = useSelector(state=>state.itemListState.totalItemCount)
     const shiftingTimes = ["6:00 AM - 8:00 AM", "8:00 AM - 10:00 AM", "10:00 AM - 12:00 PM", "12:00 PM - 1:00 PM", "2:00 PM - 4:00 PM", "4:00 PM - 6:00 PM"];
     const prices = [2689, 2750, 3000, 1000, 7000, 5000, 8000, 9000]; // Prices corresponding to each shifting date, adjust as needed
   
@@ -56,12 +57,14 @@ const ConfirmBookingModal = ({ setSteps, onCloseClick, closeText, setData, data 
         selectedCoupon: null, // Reset selected coupon when the dropdown is toggled
       }));
     };
-    console.log(data)
+   
     const handleSubmit = () => {
-      // Send the selectedValues object to the parent component or perform any other action
-      // Example: sendSelectedValuesToParent(selectedValues);
-      setSteps(5); // Proceed to the next step
-      setData((prevData) => ({...prevData, bookingDetails: selectedValues}));
+      
+      if(selectedValues.selectedDate!=null && selectedValues.selectedTime!=null){
+        setSteps(5); // Proceed to the next step
+
+        setData((prevData) => ({...prevData, bookingDetails: selectedValues}));
+      }
     };
   
     return (
@@ -168,7 +171,7 @@ const ConfirmBookingModal = ({ setSteps, onCloseClick, closeText, setData, data 
               <div className='text-right'>
                 <p className='text-xs font-bold pb-[0.5rem]'>₹ {defaultPrice}</p>
                 <p className='text-xs pb-[0.5rem]'>{selectedValues.selectedDate}</p>
-                <p className='text-xs'>{/* Number of items added */}</p>
+                <p className='text-xs'>{numberOfItems}</p>
               </div>
             </div>
   

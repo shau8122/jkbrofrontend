@@ -67,7 +67,7 @@ const AccountTwo = () => {
   
     try {
       // Make an API request with the user data
-      const response = await axios.post(`${baseUrl}/user/new`, userDataObject);
+      const response = await axios.post(`${baseUrl}user/new`, userDataObject);
       const apiResponse = response.data; // Accessing data directly from response object
   
       console.log('API Response:', apiResponse);
