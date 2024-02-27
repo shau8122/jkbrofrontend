@@ -42,7 +42,6 @@ function App() {
           <Route path="/loginsignup" element={<SignUp />} />
           <Route path="/account" element={<AccountScreen />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/tracking" element={<ProtectedRoute><TrackOrder /></ProtectedRoute>} />
 
