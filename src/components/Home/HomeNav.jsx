@@ -19,7 +19,7 @@ const HomeNav = () => {
   );
 
   const user = useSelector((state) => state.userState.user);
-
+  console.log(user.role)
   const location = useLocation();
   const currentPath = location.pathname;
   const handleLogout = async() => {
@@ -106,7 +106,7 @@ const HomeNav = () => {
             </NavLink>
 
             <NavLink
-              to={"/profile"}
+              to={user.role==='admin'?"/admindashboard":"/profile"}
               className={`flex items-center gap-1 h-[10svh] transition-all ${
                 currentPath === "/profile"
                   ? "active border-b-4 border-textPrimary px-2 font-bold"
