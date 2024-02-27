@@ -19,7 +19,7 @@ const HomeNav = () => {
   );
 
   const user = useSelector((state) => state.userState.user);
-
+  console.log(user.role)
   const location = useLocation();
   const currentPath = location.pathname;
   const handleLogout = async() => {
